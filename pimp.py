@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
 from gi.repository import Gtk
-import scipy
-from scipy import misc
+import scipy.misc
 
 UI_FILE = "pimp.ui"
 
@@ -18,18 +17,17 @@ class Pimp:
 		self.btn_undo = self.builder.get_object('btn-undo')
 		self.btn_redo = self.builder.get_object('btn-redo')
 
-		self.image = self.builder.get_object('image')
+		self.image_widget = self.builder.get_object('image')
 
 		self.window = self.builder.get_object('window')
 		self.window.show_all()
 
 	def load_image(self, filename):
-		self.image.set_from_file(filename)
+		self.image = scipy.misc.imread(filename)
+		self.image_widget.set_from_file(filename)
 
 	def save_file(self, filename):
-		print(filename)
-		img = misc.imread(filename)
-		misc.imsave(filename, img)
+		scipy.misc.imsave(filename, self.image)
 
 	def on_btn_open_clicked(self, widget):
 		dialog = Gtk.FileChooserDialog("Please choose a file",
