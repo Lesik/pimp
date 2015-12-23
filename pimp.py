@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 from gi.repository import Gtk
+import scipy
+from scipy import misc
 
 UI_FILE = "pimp.ui"
 
@@ -24,6 +26,11 @@ class Pimp:
 	def load_image(self, filename):
 		self.image.set_from_file(filename)
 
+	def save_file(self, filename):
+		print(filename)
+		img = misc.imread(filename)
+		misc.imsave(filename, img)
+
 	def on_btn_open_clicked(self, widget):
 		dialog = Gtk.FileChooserDialog("Please choose a file",
 			self.window,
@@ -34,6 +41,21 @@ class Pimp:
 		response = dialog.run()
 		if response == Gtk.ResponseType.OK:
 			self.load_image(dialog.get_filename())
+		elif response == Gtk.ResponseType.CANCEL:
+			print("lol?")
+
+		dialog.destroy()
+	
+	def on_btn_save_clicked(self, widget):
+		dialog = Gtk.FileChooserDialog("Please choose a directory",
+			self.window,
+			Gtk.FileChooserAction.SAVE,
+			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+			Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
+
+		response = dialog.run()
+		if response == Gtk.ResponseType.OK:
+			self.save_file(dialog.get_filename())
 		elif response == Gtk.ResponseType.CANCEL:
 			print("lol?")
 
