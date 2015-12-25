@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 from gi.repository import Gtk
+import numpy
 import scipy.misc
 
 UI_FILE = "pimp.ui"
+
 
 class Pimp:
 
@@ -23,6 +25,7 @@ class Pimp:
 		self.window.show_all()
 
 	def load_image(self, filename):
+		self.current_file = filename
 		self.image = scipy.misc.imread(filename)
 		self.image_widget.set_from_file(filename)
 
@@ -58,6 +61,15 @@ class Pimp:
 			print("lol?")
 
 		dialog.destroy()
+
+	def on_effect_scale(self, user_data):
+		print("Scale!")
+
+	def on_effect_invert(self, user_data):
+		if self.current_file is not None:
+			self.image = numpy.invert(self.image)
+			self.save_file(self.current_file)
+			self.load_image(self.current_file)
 
 	def on_window_destroy(self, window):
 		Gtk.main_quit()
