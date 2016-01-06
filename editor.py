@@ -30,7 +30,9 @@ class Editor:
 		self.undo.pop()
 
 	def apply_scale(self, width, height):
-		pass
+		self.undo.append(self.image)
+		self.image = scipy.misc.imresize(self.image, (width, height))
+		self.reload_image()
 
 	def randomword(self, length):
 		return ''.join(random.choice(string.ascii_lowercase) for i in range(length))

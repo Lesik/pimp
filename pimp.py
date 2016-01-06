@@ -66,7 +66,7 @@ class Pimp:
 		dialog.destroy()
 
 	def on_effect_scale(self, user_data):
-		self.editor.apply_invert()
+		self.editor.apply_scale(100, 100)
 
 	def on_effect_invert(self, user_data):
 		self.editor.apply_invert()
