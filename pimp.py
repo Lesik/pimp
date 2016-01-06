@@ -78,7 +78,7 @@ class Pimp:
 		self.btn_redo.set_sensitive(self.editor.avail_redo())
 		
 	def on_effect_scale(self, user_data):
-		self.editor.apply_scale(100, 100)		
+		self.editor.apply_scale(200, 200)
 		self.sensitivity_check()
 
 	def on_effect_invert(self, user_data):

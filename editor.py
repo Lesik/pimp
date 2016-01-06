@@ -3,6 +3,7 @@
 import numpy
 import scipy.misc
 import random, string
+import os
 from gi.repository import GdkPixbuf
 
 
@@ -49,9 +50,10 @@ class Editor:
 		return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
 
 	def reload_image(self):
-		randomfilename = "/tmp/pimp" + self.randomword(6) + ".png"
-		scipy.misc.imsave(randomfilename, self.image)
-		self.image_widget.set_from_file(randomfilename)
+		path = "/tmp/pimp" + self.randomword(6) + ".png"
+		scipy.misc.imsave(path, self.image)
+		self.image_widget.set_from_file(path)
+		os.remove(path)
 		
 	def avail_undo(self):
 		return not len(self.history) == 0
