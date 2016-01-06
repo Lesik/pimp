@@ -71,8 +71,6 @@ class Pimp:
 		self.popup_scale = self.builder.get_object('popup_scale')
 		self.popup_scale.show_all()
 
-		
-
 	def on_effect_invert(self, user_data):
 		if self.current_file is not None:
 			self.image = numpy.invert(self.image)
