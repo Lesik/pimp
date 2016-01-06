@@ -27,7 +27,7 @@ class Pimp:
 		self.window.show_all()
 
 	def load_image(self, path):
-		self.editor = editor.Editor(path, self.image_widget)
+		self.editor = editor.Editor(path, self.image_widget, self.builder)
 
 	def save_file(self, filename):
 		if filename[-4:] != '.png' and filename[-4:] != '.jpg' and \
@@ -67,12 +67,23 @@ class Pimp:
 
 	def on_button_undo_clicked(self, widget):
 		self.editor.do_undo()
+		self.sensitivity_check()
 
+	def on_button_redo_clicked(self, widget):
+		self.editor.do_redo()
+		self.sensitivity_check()
+
+	def sensitivity_check(self):
+		self.btn_undo.set_sensitive(self.editor.avail_undo())
+		self.btn_redo.set_sensitive(self.editor.avail_redo())
+		
 	def on_effect_scale(self, user_data):
-		self.editor.apply_scale(100, 100)
+		self.editor.apply_scale(100, 100)		
+		self.sensitivity_check()
 
 	def on_effect_invert(self, user_data):
-		self.editor.apply_invert()
+		self.editor.apply_invert()		
+		self.sensitivity_check()
 
 	def on_window_destroy(self, window):
 		Gtk.main_quit()
