@@ -9,7 +9,7 @@ from gi.repository import GdkPixbuf
 class Editor:
 
 	filetype = ""
-	undo = []
+	history = []
 
 	def __init__(self, path, image_widget):
 		self.path = path
@@ -27,10 +27,12 @@ class Editor:
 		pass
 
 	def do_undo(self):
-		self.undo.pop()
+		self.image = self.history[-1]
+		self.history.pop()
+		self.reload_image()
 
 	def apply_scale(self, width, height):
-		self.undo.append(self.image)
+		self.history.append(self.image)
 		self.image = scipy.misc.imresize(self.image, (width, height))
 		self.reload_image()
 
@@ -43,6 +45,6 @@ class Editor:
 		self.image_widget.set_from_file(randomfilename)
 
 	def apply_invert(self):
-		self.undo.append(self.image)
+		self.history.append(self.image)
 		self.image = numpy.invert(self.image)
 		self.reload_image()

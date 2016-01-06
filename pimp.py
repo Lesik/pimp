@@ -65,6 +65,9 @@ class Pimp:
 
 		dialog.destroy()
 
+	def on_button_undo_clicked(self, widget):
+		self.editor.do_undo()
+
 	def on_effect_scale(self, user_data):
 		self.editor.apply_scale(100, 100)
 
