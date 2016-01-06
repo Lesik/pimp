@@ -23,13 +23,11 @@ class Pimp:
 
 		self.image_widget = self.builder.get_object('image')
 
-		self.editor = editor.Editor(self.image_widget)
-
 		self.window = self.builder.get_object('window')
 		self.window.show_all()
 
-	def load_image(self, filename):
-		self.editor.load_image_from_path(filename)
+	def load_image(self, path):
+		self.editor = editor.Editor(path, self.image_widget)
 
 	def save_file(self, filename):
 		if filename[-4:] != '.png' and filename[-4:] != '.jpg' and \

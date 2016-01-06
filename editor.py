@@ -2,19 +2,19 @@
 
 import numpy
 import scipy.misc
+import random, string
 from gi.repository import GdkPixbuf
 
 
 class Editor:
 
+	filetype = ""
 	undo = []
 
-	def __init__(self, image_widget):
-		self.image_widget = image_widget
-
-	def load_image_from_path(self, path):
+	def __init__(self, path, image_widget):
 		self.path = path
 		self.image = scipy.misc.imread(path)
+		self.image_widget = image_widget
 		self.image_widget.set_from_file(path)
 
 	def save_image(self):
@@ -29,19 +29,16 @@ class Editor:
 	def do_undo(self):
 		self.undo.pop()
 
-	def reload_image(self):
-		width, height = self.image.size
-		asd = GdkPixbuf.Pixbuf.new_from_data(self.image.tostring(),
-											 GdkPixbuf.COLORSPACE.RGB,
-											 True,
-											 8,
-											 width,
-											 height,
-											 width * 4)
-		self.image_widget.set_from_pixbuf(asd)
-
 	def apply_scale(self, width, height):
 		pass
+
+	def randomword(self, length):
+		return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
+
+	def reload_image(self):
+		randomfilename = "/tmp/pimp" + self.randomword(6) + ".png"
+		scipy.misc.imsave(randomfilename, self.image)
+		self.image_widget.set_from_file(randomfilename)
 
 	def apply_invert(self):
 		self.undo.append(self.image)
