@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
 from gi.repository import Gtk
+#gi.require_version('Gtk', '3.6')
 import numpy
 import scipy.misc
+import editor
 
 UI_FILE = "pimp.ui"
 
@@ -21,13 +23,13 @@ class Pimp:
 
 		self.image_widget = self.builder.get_object('image')
 
+		self.editor = editor.Editor(self.image_widget)
+
 		self.window = self.builder.get_object('window')
 		self.window.show_all()
 
 	def load_image(self, filename):
-		self.current_file = filename
-		self.image = scipy.misc.imread(filename)
-		self.image_widget.set_from_file(filename)
+		self.editor.load_image_from_path(filename)
 
 	def save_file(self, filename):
 		if filename[-4:] != '.png' and filename[-4:] != '.jpg' and \
@@ -66,16 +68,10 @@ class Pimp:
 		dialog.destroy()
 
 	def on_effect_scale(self, user_data):
-		self.spinbtnwidth = self.builder.get_object('spinbtnwidth')
-		self.spinbtnheight = self.builder.get_object('spinbtnheight')
-		self.popup_scale = self.builder.get_object('popup_scale')
-		self.popup_scale.show_all()
+		self.editor.apply_invert()
 
 	def on_effect_invert(self, user_data):
-		if self.current_file is not None:
-			self.image = numpy.invert(self.image)
-			self.save_file(self.current_file)
-			self.load_image(self.current_file)
+		self.editor.apply_invert()
 
 	def on_window_destroy(self, window):
 		Gtk.main_quit()
