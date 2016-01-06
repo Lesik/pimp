@@ -30,6 +30,9 @@ class Pimp:
 		self.image_widget.set_from_file(filename)
 
 	def save_file(self, filename):
+		if filename[-4:] != '.png' and filename[-4:] != '.jpg' and \
+		filename[-4:] != '.tif' and filename[-5:] != '.tiff':
+			filename += '.png'
 		scipy.misc.imsave(filename, self.image)
 
 	def on_btn_open_clicked(self, widget):
@@ -63,7 +66,12 @@ class Pimp:
 		dialog.destroy()
 
 	def on_effect_scale(self, user_data):
-		print("Scale!")
+		self.spinbtnwidth = self.builder.get_object('spinbtnwidth')
+		self.spinbtnheight = self.builder.get_object('spinbtnheight')
+		self.popup_scale = self.builder.get_object('popup_scale')
+		self.popup_scale.show_all()
+
+		
 
 	def on_effect_invert(self, user_data):
 		if self.current_file is not None:
