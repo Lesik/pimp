@@ -40,12 +40,6 @@ class Editor:
 		self.future.pop()		
 		self.reload_image()
 
-	def apply_scale(self, width, height):
-		self.history.append(self.image)
-		self.future = []
-		self.image = scipy.misc.imresize(self.image, (width, height))
-		self.reload_image()
-
 	def randomword(self, length):
 		return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
 
@@ -61,11 +55,22 @@ class Editor:
 	def avail_redo(self):
 		return not len(self.future) == 0
 
+	def apply_scale(self, width, height):
+		self.history.append(self.image)
+		self.future = []
+		self.image = scipy.misc.imresize(self.image, (width, height))
+		self.reload_image()
+
 	def apply_invert(self):
 		self.history.append(self.image)
 		self.future = []
 		self.image = numpy.invert(self.image)
 		self.reload_image()
 
+	def apply_grayscale(self):
+		self.history.append(self.image)
+		self.future = []
+		self.image = self.image[:, :, 0]
+		self.reload_image()
 
 

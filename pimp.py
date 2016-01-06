@@ -85,6 +85,10 @@ class Pimp:
 		self.editor.apply_invert()		
 		self.sensitivity_check()
 
+	def on_effect_grayscale(self, user_data):
+		self.editor.apply_grayscale()
+		self.sensitivity_check()
+
 	def on_window_destroy(self, window):
 		Gtk.main_quit()
 
