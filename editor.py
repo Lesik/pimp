@@ -14,13 +14,20 @@ class Editor:
 	future = []
 
 	def __init__(self, path, image_widget, builder):
+		self.path = path
 		self.image = scipy.misc.imread(path)
 		self.image_widget = image_widget
 		self.image_widget.set_from_file(path)
 		self.builder = builder
 
 	def save_image(self):
-		scipy.misc.imsave(self.path, self.image)
+		self.save_image_as(self.path)
+
+	def save_image_as(self, path):
+		if path[-4:] != '.png' and path[-4:] != '.jpg' and \
+		path[-4:] != '.tif' and path[-5:] != '.tiff':
+			path += '.png'
+		scipy.misc.imsave(path, self.image)
 
 	def get_image(self):
 		return self.image
@@ -70,7 +77,10 @@ class Editor:
 	def apply_grayscale(self):
 		self.history.append(self.image)
 		self.future = []
-		self.image = self.image[:, :, 0]
-		self.reload_image()
+		try:
+			self.image = self.image[:, :, 0]
+			self.reload_image()
+		except:
+			return
 
 

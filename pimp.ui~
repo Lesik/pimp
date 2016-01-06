@@ -151,8 +151,21 @@
               </packing>
             </child>
             <child>
+              <object class="GtkToolButton" id="btn-save-as">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Save As ...</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkToolButton" id="btn-undo">
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Undo</property>
                 <property name="use_underline">True</property>
@@ -167,6 +180,7 @@
             <child>
               <object class="GtkToolButton" id="btn-redo">
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Redo</property>
                 <property name="use_underline">True</property>
@@ -208,6 +222,19 @@
                 <property name="label" translatable="yes">Invert</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_effect_invert" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="effect-grayscale">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Grayscale</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_effect_grayscale" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>

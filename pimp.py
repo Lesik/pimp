@@ -29,12 +29,6 @@ class Pimp:
 	def load_image(self, path):
 		self.editor = editor.Editor(path, self.image_widget, self.builder)
 
-	def save_file(self, filename):
-		if filename[-4:] != '.png' and filename[-4:] != '.jpg' and \
-		filename[-4:] != '.tif' and filename[-5:] != '.tiff':
-			filename += '.png'
-		scipy.misc.imsave(filename, self.image)
-
 	def on_btn_open_clicked(self, widget):
 		dialog = Gtk.FileChooserDialog("Please choose a file",
 			self.window,
@@ -45,12 +39,13 @@ class Pimp:
 		response = dialog.run()
 		if response == Gtk.ResponseType.OK:
 			self.load_image(dialog.get_filename())
-		elif response == Gtk.ResponseType.CANCEL:
-			print("lol?")
 
 		dialog.destroy()
-	
+
 	def on_btn_save_clicked(self, widget):
+		self.editor.save_image()
+	
+	def on_btn_save_as_clicked(self, widget):
 		dialog = Gtk.FileChooserDialog("Please choose a directory",
 			self.window,
 			Gtk.FileChooserAction.SAVE,
@@ -59,9 +54,7 @@ class Pimp:
 
 		response = dialog.run()
 		if response == Gtk.ResponseType.OK:
-			self.save_file(dialog.get_filename())
-		elif response == Gtk.ResponseType.CANCEL:
-			print("lol?")
+			self.editor.save_image_as(dialog.get_filename())
 
 		dialog.destroy()
 
