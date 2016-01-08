@@ -14,13 +14,20 @@ class Editor:
 	future = []
 
 	def __init__(self, path, image_widget, builder):
+		self.path = path
 		self.image = scipy.misc.imread(path)
 		self.image_widget = image_widget
 		self.image_widget.set_from_file(path)
 		self.builder = builder
 
 	def save_image(self):
-		scipy.misc.imsave(self.path, self.image)
+		self.save_image_as(self.path)
+
+	def save_image_as(self, path):
+		if path[-4:] != '.png' and path[-4:] != '.jpg' and \
+		path[-4:] != '.tif' and path[-5:] != '.tiff':
+			path += '.png'
+		scipy.misc.imsave(path, self.image)
 
 	def get_image(self):
 		return self.image
@@ -41,7 +48,8 @@ class Editor:
 		self.reload_image()
 
 	def randomword(self, length):
-		return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
+		return ''.join(random.choice(string.ascii_lowercase)
+				for i in range(length))
 
 	def reload_image(self):
 		path = "/tmp/pimp" + self.randomword(6) + ".png"
@@ -55,10 +63,10 @@ class Editor:
 	def avail_redo(self):
 		return not len(self.future) == 0
 
-	def apply_scale(self, width, height):
+	def apply_scale(self, height, width):
 		self.history.append(self.image)
 		self.future = []
-		self.image = scipy.misc.imresize(self.image, (width, height))
+		self.image = scipy.misc.imresize(self.image, (height, width))
 		self.reload_image()
 
 	def apply_invert(self):
@@ -70,7 +78,10 @@ class Editor:
 	def apply_grayscale(self):
 		self.history.append(self.image)
 		self.future = []
-		self.image = self.image[:, :, 0]
-		self.reload_image()
+		try:
+			self.image = self.image[:, :, 0]
+			self.reload_image()
+		except:
+			return
 
 
