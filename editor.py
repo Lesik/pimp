@@ -48,7 +48,8 @@ class Editor:
 		self.reload_image()
 
 	def randomword(self, length):
-		return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
+		return ''.join(random.choice(string.ascii_lowercase)
+				for i in range(length))
 
 	def reload_image(self):
 		path = "/tmp/pimp" + self.randomword(6) + ".png"
@@ -62,10 +63,10 @@ class Editor:
 	def avail_redo(self):
 		return not len(self.future) == 0
 
-	def apply_scale(self, width, height):
+	def apply_scale(self, height, width):
 		self.history.append(self.image)
 		self.future = []
-		self.image = scipy.misc.imresize(self.image, (width, height))
+		self.image = scipy.misc.imresize(self.image, (height, width))
 		self.reload_image()
 
 	def apply_invert(self):

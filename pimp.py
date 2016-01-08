@@ -71,8 +71,32 @@ class Pimp:
 		self.btn_redo.set_sensitive(self.editor.avail_redo())
 		
 	def on_effect_scale(self, user_data):
-		self.editor.apply_scale(200, 200)
+		self.spinbtnheight = self.builder.get_object('spinbtnheight')
+		self.spinbtnheight.set_range(1, 1000)
+		self.spinbtnwidth = self.builder.get_object('spinbtnwidth')
+		self.spinbtnwidth.set_range(1, 1000)
+		self.aspect_ratio_checkbtn = \
+			self.builder.get_object('aspect_ratio_checkbtn')
+		self.popup_scale = self.builder.get_object('popup_scale')
+		self.popup_scale.connect('delete-event', 
+								 lambda w, e: w.hide() or True)
+		self.popup_scale.show_all()
+
+	def on_effect_scale_commit(self, button):
+		height = self.spinbtnheight.get_value_as_int()
+		width = self.spinbtnwidth.get_value_as_int()
+		self.editor.apply_scale(height, width)
 		self.sensitivity_check()
+	
+	def on_effect_scale_cancel(self, user_data):
+		self.popup_scale.hide()
+		return True
+
+	def aspect_ratio_checkbtn_toggled(self, user_data):
+		ratio = self.editor.apply_aspect_ratio()
+		print(self.spinbtnheight.get_adjustment())
+		self.spinbtnheight.configure(ratio, 0)
+		#self.spinbtnwidth.configure(adjustment, ratio, 0)	
 
 	def on_effect_invert(self, user_data):
 		self.editor.apply_invert()		
