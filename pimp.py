@@ -2,7 +2,7 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Keybinder
 import numpy
 import scipy.misc
 import editor
@@ -23,12 +23,21 @@ class Pimp:
 		self.btn_redo = self.builder.get_object('btn-redo')
 		self.menuitem_undo = self.builder.get_object('menuitem_undo')
 		self.menuitem_redo = self.builder.get_object('menuitem_redo')
-
+		
+		Keybinder.init()
+		Keybinder.bind("<Ctrl>O", self.on_open, True)
+		Keybinder.bind("<Ctrl>S", self.on_save, True)
+		Keybinder.bind("<Ctrl>Z", self.on_undo, True)
+		Keybinder.bind("<Ctrl><Shift>Z", self.on_redo, True)
+		Keybinder.bind("<Ctrl>P", self.on_pimp, True)
 
 		self.image_widget = self.builder.get_object('image')
 
 		self.window = self.builder.get_object('window')
 		self.window.show_all()
+
+	def on_pimp(self):
+		pass
 
 	def window_hide(self, window, event):
 		window.hide()
@@ -108,9 +117,10 @@ class Pimp:
 		width = self.spinbtnwidth.get_value_as_int()
 		self.editor.apply_scale(height, width)
 		self.sensitivity_check()
+		self.dialog_scale.hide()
 	
 	def on_effect_scale_cancel(self, user_data):
-		self.popup_scale.hide()
+		self.dialog_scale.hide()
 		return True
 
 	def aspect_ratio_checkbtn_toggled(self, user_data):
