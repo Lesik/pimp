@@ -33,7 +33,7 @@ class Pimp:
 	def load_image(self, path):
 		self.editor = editor.Editor(path, self.image_widget, self.builder)
 
-	def on_btn_open_clicked(self, widget):
+	def on_open(self, widget):
 		dialog = Gtk.FileChooserDialog("Please choose a file",
 			self.window,
 			Gtk.FileChooserAction.OPEN,
@@ -57,10 +57,10 @@ class Pimp:
 		
 		dialog.destroy()
 
-	def on_btn_save_clicked(self, widget):
+	def on_save(self, widget):
 		self.editor.save_image()
 	
-	def on_btn_save_as_clicked(self, widget):
+	def on_save_as(self, widget):
 		dialog = Gtk.FileChooserDialog("Please choose a directory",
 			self.window,
 			Gtk.FileChooserAction.SAVE,
@@ -73,11 +73,11 @@ class Pimp:
 
 		dialog.destroy()
 
-	def on_button_undo_clicked(self, widget):
+	def on_undo(self, widget):
 		self.editor.do_undo()
 		self.sensitivity_check()
 
-	def on_button_redo_clicked(self, widget):
+	def on_redo(self, widget):
 		self.editor.do_redo()
 		self.sensitivity_check()
 
@@ -93,7 +93,7 @@ class Pimp:
 		self.aspect_ratio_checkbtn = \
 			self.builder.get_object('aspect_ratio_checkbtn')
 		self.popup_scale = self.builder.get_object('popup_scale')
-		self.popup_scale.connect('delete-event', window_hide)
+		self.popup_scale.connect('delete-event', self.window_hide)
 		self.popup_scale.show_all()
 
 	def on_effect_scale_commit(self, button):
@@ -131,6 +131,12 @@ class Pimp:
 		self.editor.apply_flip_verti()
 		self.sensitivity_check()
 
+	def on_about(self, widget):
+		# dummy function, will use later
+		pass
+
+	def on_quit(self, widget):
+		Gtk.main_quit()
 
 
 if __name__ == "__main__":
