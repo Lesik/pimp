@@ -2,9 +2,9 @@
 
 import numpy
 import scipy.misc
+import scipy.ndimage
 import random, string
 import os
-from gi.repository import GdkPixbuf
 
 
 class Editor:
@@ -89,6 +89,12 @@ class Editor:
 		except:
 			return
 
+	def apply_gauss(self):
+		self.history.append(self.image)
+		self.image = scipy.ndimage.filters.gaussian_filter(self.image,
+			10)
+		self.reload_image()
+
 	def apply_flip_horiz(self):
 		self.history.append(self.image)
 		self.future = []
@@ -100,6 +106,3 @@ class Editor:
 		self.future = []
 		self.image = numpy.flipud(self.image)
 		self.reload_image()
-
-
-

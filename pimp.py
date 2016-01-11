@@ -99,9 +99,9 @@ class Pimp:
 		self.spinbtnwidth.set_range(1, 1000)
 		self.aspect_ratio_checkbtn = \
 			self.builder.get_object('aspect_ratio_checkbtn')
-		self.popup_scale = self.builder.get_object('popup_scale')
-		self.popup_scale.connect('delete-event', self.window_hide)
-		self.popup_scale.show_all()
+		self.dialog_scale = self.builder.get_object('dialog_scale')
+		self.dialog_scale.connect('delete-event', self.window_hide)
+		self.dialog_scale.show_all()
 
 	def on_effect_scale_commit(self, button):
 		height = self.spinbtnheight.get_value_as_int()
@@ -122,6 +122,10 @@ class Pimp:
 	def on_effect_invert(self, user_data):
 		self.editor.apply_invert()		
 		self.sensitivity_check()
+
+	def on_effect_gauss(self, user_data):
+	        self.editor.apply_gauss()
+	        self.sensitivity_check()
 
 	def on_effect_grayscale(self, user_data):
 		self.editor.apply_grayscale()
