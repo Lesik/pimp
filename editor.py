@@ -9,16 +9,15 @@ from gi.repository import GdkPixbuf
 
 class Editor:
 
-	filetype = ""
-	history = []
-	future = []
-
 	def __init__(self, path, image_widget, builder):
 		self.path = path
 		self.image = scipy.misc.imread(path)
 		self.image_widget = image_widget
 		self.image_widget.set_from_file(path)
 		self.builder = builder
+		self.filetype = ""
+		self.history = []
+		self.future = []
 
 	def save_image(self):
 		self.save_image_as(self.path)

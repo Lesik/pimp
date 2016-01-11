@@ -21,6 +21,9 @@ class Pimp:
 		self.btn_save = self.builder.get_object('btn-save')
 		self.btn_undo = self.builder.get_object('btn-undo')
 		self.btn_redo = self.builder.get_object('btn-redo')
+		self.menuitem_undo = self.builder.get_object('menuitem_undo')
+		self.menuitem_redo = self.builder.get_object('menuitem_redo')
+
 
 		self.image_widget = self.builder.get_object('image')
 
@@ -33,6 +36,7 @@ class Pimp:
 
 	def load_image(self, path):
 		self.editor = editor.Editor(path, self.image_widget, self.builder)
+		self.sensitivity_check()
 
 	def on_open(self, widget):
 		dialog = Gtk.FileChooserDialog("Please choose a file",
@@ -85,6 +89,8 @@ class Pimp:
 	def sensitivity_check(self):
 		self.btn_undo.set_sensitive(self.editor.avail_undo())
 		self.btn_redo.set_sensitive(self.editor.avail_redo())
+		self.menuitem_undo.set_sensitive(self.editor.avail_undo())
+		self.menuitem_redo.set_sensitive(self.editor.avail_redo())
 
 	def on_effect_scale(self, user_data):
 		self.spinbtnheight = self.builder.get_object('spinbtnheight')
