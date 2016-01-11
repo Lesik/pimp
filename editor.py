@@ -90,4 +90,17 @@ class Editor:
 		except:
 			return
 
+	def apply_flip_horiz(self):
+		self.history.append(self.image)
+		self.future = []
+		self.image = numpy.fliplr(self.image)
+		self.reload_image()
+
+	def apply_flip_verti(self):
+		self.history.append(self.image)
+		self.future = []
+		self.image = numpy.flipud(self.image)
+		self.reload_image()
+
+
 
