@@ -3,10 +3,12 @@
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Keybinder', '3.0')
-from gi.repository import Gtk, Keybinder
+from gi.repository import Gtk, GObject, Keybinder
 import numpy
 import scipy.misc
 import editor
+from random import randint
+from time import sleep
 
 UI_FILE = "pimp.ui"
 
@@ -26,10 +28,10 @@ class Pimp:
 		self.menuitem_redo = self.builder.get_object('menuitem_redo')
 		
 		Keybinder.init()
-		Keybinder.bind("<Ctrl>O", self.on_open, True)
-		Keybinder.bind("<Ctrl>S", self.on_save, True)
-		Keybinder.bind("<Ctrl>Z", self.on_undo, True)
-		Keybinder.bind("<Ctrl><Shift>Z", self.on_redo, True)
+		#Keybinder.bind("<Ctrl>O", self.on_open, True)
+		#Keybinder.bind("<Ctrl>S", self.on_save, True)
+		#Keybinder.bind("<Ctrl>Z", self.on_undo, True)
+		#Keybinder.bind("<Ctrl><Shift>Z", self.on_redo, True)
 		Keybinder.bind("<Ctrl>P", self.on_pimp, True)
 
 		self.image_widget = self.builder.get_object('image')
@@ -159,6 +161,21 @@ class Pimp:
 
 	def on_quit(self, widget):
 		Gtk.main_quit()
+		
+	def on_pimp(self, shortcut, var):
+		pimp = self.builder.get_object('pimp')
+		pimp.set_opacity(0)
+		pimp.show_all()
+		screen_dimens = [pimp.get_screen().get_width() - pimp.get_size()[0],
+			pimp.get_screen().get_height() - pimp.get_size()[1],
+			pimp]
+		for i in range(1000):
+			GObject.timeout_add(i*30, self.lala, screen_dimens)
+
+	def lala(self, args):
+		args[2].move(randint(0, args[0]),
+			randint(0, args[1]))
+		args[2].show_all()
 
 
 if __name__ == "__main__":
