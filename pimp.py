@@ -40,10 +40,21 @@ class Pimp:
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
 
+		imagefilter = Gtk.FileFilter()
+		imagefilter.set_name("Images")
+		imagefilter.add_mime_type("image/png")
+		imagefilter.add_mime_type("image/jpeg")
+		imagefilter.add_mime_type("image/gif")
+		imagefilter.add_pattern("*.png")
+		imagefilter.add_pattern("*.jpg")
+		imagefilter.add_pattern("*.gif")
+		imagefilter.add_pattern("*.tif")
+		imagefilter.add_pattern("*.xpm")
+		dialog.add_filter(imagefilter)
 		response = dialog.run()
 		if response == Gtk.ResponseType.OK:
 			self.load_image(dialog.get_filename())
-
+		
 		dialog.destroy()
 
 	def on_btn_save_clicked(self, widget):
