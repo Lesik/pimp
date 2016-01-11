@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from gi.repository import Gtk
-#gi.require_version('Gtk', '3.6')
+gi.require_version('Gtk', '3.0')
 import numpy
 import scipy.misc
 import editor
