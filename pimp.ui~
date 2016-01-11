@@ -82,7 +82,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSpinButton" id="spinbtnwidt">
+              <object class="GtkSpinButton" id="spinbtnwidth">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_width_chars">5</property>
@@ -294,6 +294,30 @@
                 <property name="label" translatable="yes">Grayscale</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_effect_grayscale" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="effect-flip-horiz">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Flip horizontal</property>
+                <signal name="clicked" handler="on_effect_flip_horiz" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="effect-flip-verti">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Flip vertical</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>

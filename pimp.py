@@ -123,6 +123,15 @@ class Pimp:
 	def on_window_destroy(self, window):
 		Gtk.main_quit()
 
+	def on_effect_flip_horiz(self, widget):
+		self.editor.apply_flip_horiz()
+		self.sensitivity_check()
+
+	def on_effect_flip_verti(self, widget):
+		self.editor.apply_flip_verti()
+		self.sensitivity_check()
+
+
 
 if __name__ == "__main__":
 	Pimp()
