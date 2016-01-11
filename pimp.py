@@ -26,6 +26,10 @@ class Pimp:
 		self.window = self.builder.get_object('window')
 		self.window.show_all()
 
+	def window_hide(self, window, event):
+		window.hide()
+		return True
+
 	def load_image(self, path):
 		self.editor = editor.Editor(path, self.image_widget, self.builder)
 
@@ -78,13 +82,8 @@ class Pimp:
 		self.aspect_ratio_checkbtn = \
 			self.builder.get_object('aspect_ratio_checkbtn')
 		self.popup_scale = self.builder.get_object('popup_scale')
-		self.popup_scale.connect('delete-event',
-								 lambda w, e: w.hide() or True)
+		self.popup_scale.connect('delete-event', window_hide)
 		self.popup_scale.show_all()
-
-	def window_hide(self, window, event):
-		window.hide()
-		return True
 
 	def on_effect_scale_commit(self, button):
 		height = self.spinbtnheight.get_value_as_int()

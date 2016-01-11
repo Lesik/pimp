@@ -25,7 +25,8 @@ class Editor:
 
 	def save_image_as(self, path):
 		if path[-4:] != '.png' and path[-4:] != '.jpg' and \
-		path[-4:] != '.tif' and path[-5:] != '.tiff':
+		path[-4:] != '.bmp' and path[-4:] != '.tif' and\
+		path[-5:] != '.tiff':
 			path += '.png'
 		scipy.misc.imsave(path, self.image)
 
@@ -68,6 +69,11 @@ class Editor:
 		self.future = []
 		self.image = scipy.misc.imresize(self.image, (height, width))
 		self.reload_image()
+
+	def apply_aspect_ratio(self):		
+		height = numpy.size(self.image, 0)
+		width = numpy.size(self.image, 1)
+		return (height / width)
 
 	def apply_invert(self):
 		self.history.append(self.image)
