@@ -56,9 +56,9 @@ class Pimp:
 			pimp.get_screen().get_height() - pimp.get_size()[1],
 			pimp]
 		for i in range(500):
-			GObject.timeout_add(i * 30, self.lala, screen_dimens)
+			GObject.timeout_add(i * 30, self.fly_around, screen_dimens)
 
-	def lala(self, args):
+	def fly_around(self, args):
 		args[2].move(randint(0, args[0]),
 			randint(0, args[1]))
 		args[2].show_all()
@@ -159,6 +159,10 @@ class Pimp:
 
 	def on_effect_invert(self, user_data):
 		self.editor.apply_invert()		
+		self.sensitivity_check()
+
+	def on_effect_motion(self, user_date):
+		self.editor.apply_motion()
 		self.sensitivity_check()
 
 	def on_effect_gauss(self, user_data):

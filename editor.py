@@ -101,6 +101,12 @@ class Editor:
 		except:
 			return
 
+	def apply_motion(self):
+		self.history.append(self.image)
+		self.future = []
+		self.image = scipy.ndimage.filters.median_filter(self.image, 20)
+		self.reload_image()
+
 	def apply_gauss(self, level):
 		self.history.append(self.image)
 		self.future = []
