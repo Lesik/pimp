@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adjustment1">
@@ -287,39 +287,13 @@
     <property name="skip_taskbar_hint">True</property>
     <property name="urgency_hint">True</property>
     <property name="accept_focus">False</property>
+    <property name="decorated">False</property>
     <property name="deletable">False</property>
     <child>
-      <object class="GtkBox" id="box2">
+      <object class="GtkImage" id="image1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkLabel" id="label3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">EASTER EGG YAAAAAAAAAY</property>
-            <attributes>
-              <attribute name="scale" value="5"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkImage" id="image1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="pixbuf">pimp2.gif</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
+        <property name="pixbuf">pimp2.gif</property>
       </object>
     </child>
   </object>
