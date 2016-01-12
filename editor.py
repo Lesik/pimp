@@ -12,6 +12,7 @@ __email__ = "klisa-2008@yandex.ru"
 import numpy
 import scipy.misc
 import scipy.ndimage
+import scipy.signal
 import random, string
 import os
 
@@ -101,11 +102,11 @@ class Editor:
 			return
 
 	def apply_gauss(self, level):
-		print(level)
 		self.history.append(self.image)
 		self.future = []
 		self.image = scipy.ndimage.filters.gaussian_filter(self.image,
-			level, 0)
+			level)
+		#self.image = scipy.signal.spline_filter(self.image)
 		self.reload_image()
 
 	def apply_flip_horiz(self):

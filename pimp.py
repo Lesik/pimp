@@ -55,8 +55,8 @@ class Pimp:
 		screen_dimens = [pimp.get_screen().get_width() - pimp.get_size()[0],
 			pimp.get_screen().get_height() - pimp.get_size()[1],
 			pimp]
-		for i in range(1000):
-			GObject.timeout_add(i*30, self.lala, screen_dimens)
+		for i in range(500):
+			GObject.timeout_add(i * 30, self.lala, screen_dimens)
 
 	def lala(self, args):
 		args[2].move(randint(0, args[0]),
@@ -170,7 +170,7 @@ class Pimp:
 
 	def on_effect_gauss_commit(self, button):
 		level = self.smoothing_gaussian.get_value_pos()
-		level *= (1 / 2) # as 2 is the highest smoothing level
+		level = level * (1 / 2)
 		self.editor.apply_gauss(level)
 		self.sensitivity_check()
 		self.dialog_gaussian.hide()
