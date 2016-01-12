@@ -162,9 +162,23 @@ class Pimp:
 		self.sensitivity_check()
 
 	def on_effect_gauss(self, user_data):
-	        self.editor.apply_gauss()
-	        self.sensitivity_check()
+		self.smoothing_gaussian = \
+			self.builder.get_object('smoothing-gaussian')
+		self.dialog_gaussian = self.builder.get_object('dialog_gaussian')
+		self.dialog_gaussian.connect('delete-event', self.window_hide)
+		self.dialog_gaussian.show_all()
 
+	def on_effect_gauss_commit(self, button):
+		level = self.smoothing_gaussian.get_value_pos()
+		level *= (1 / 2) # as 2 is the highest smoothing level
+		self.editor.apply_gauss(level)
+		self.sensitivity_check()
+		self.dialog_gaussian.hide()
+	
+	def on_effect_gauss_cancel(self, user_data):
+		self.dialog_gaussian.hide()
+		return True
+	    
 	def on_effect_grayscale(self, user_data):
 		self.editor.apply_grayscale()
 		self.sensitivity_check()

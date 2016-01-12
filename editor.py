@@ -6,7 +6,7 @@ __copyright__ = "Copyright 2015/2016 – EPR-Goethe-Uni"
 __credits__ = "Wir haben heute schon so viel verpasst! \
 Ey ich glaube wir machen uns sofort auf den Weg nachdem wir gechillt haben!"
 __email__ = "klisa-2008@yandex.ru"
-'''frontend of P Imagine Manipulation Programm'''
+'''backend of P Imagine Manipulation Programm'''
 
 
 import numpy
@@ -100,10 +100,12 @@ class Editor:
 		except:
 			return
 
-	def apply_gauss(self):
+	def apply_gauss(self, level):
+		print(level)
 		self.history.append(self.image)
+		self.future = []
 		self.image = scipy.ndimage.filters.gaussian_filter(self.image,
-			10)
+			level, 0)
 		self.reload_image()
 
 	def apply_flip_horiz(self):
