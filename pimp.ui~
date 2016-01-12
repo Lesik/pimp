@@ -230,7 +230,7 @@
               <object class="GtkLabel" id="low_smooth">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">0.0</property>
+                <property name="label" translatable="yes">no smoothing</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -254,7 +254,7 @@
               <object class="GtkLabel" id="high_smooth">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">3.0</property>
+                <property name="label" translatable="yes">no smoothing</property>
               </object>
               <packing>
                 <property name="expand">False</property>
