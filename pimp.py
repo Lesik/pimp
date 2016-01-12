@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
 
+__author__ = "6040239: Elizaveta Kovalevskaya, Oles Pidgornyy"
+__licence__ = "GPLv2"
+__copyright__ = "Copyright 2015/2016 – EPR-Goethe-Uni"
+__credits__ = "Wir haben heute schon so viel verpasst! \
+Ey ich glaube wir machen uns sofort auf den Weg nachdem wir gechillt haben!"
+__email__ = "klisa-2008@yandex.ru"
+'''frontend of P Imagine Manipulation Programm'''
+
+
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Keybinder', '3.0')
@@ -31,7 +40,7 @@ class Pimp:
 		#Keybinder.bind("<Ctrl>O", self.on_open, True)
 		#Keybinder.bind("<Ctrl>S", self.on_save, True)
 		#Keybinder.bind("<Ctrl>Z", self.on_undo, True)
-		#Keybinder.bind("<Ctrl><Shift>Z", self.on_redo, True)
+		#Keybinder.bind("<Ctrl>Y", self.on_redo, True)
 		Keybinder.bind("<Ctrl>P", self.on_pimp, True)
 
 		self.image_widget = self.builder.get_object('image')
@@ -39,8 +48,20 @@ class Pimp:
 		self.window = self.builder.get_object('window')
 		self.window.show_all()
 
-	def on_pimp(self):
-		pass
+	def on_pimp(self, shortcut, var = True):
+		pimp = self.builder.get_object('pimp')
+		pimp.set_opacity(0)
+		pimp.show_all()
+		screen_dimens = [pimp.get_screen().get_width() - pimp.get_size()[0],
+			pimp.get_screen().get_height() - pimp.get_size()[1],
+			pimp]
+		for i in range(1000):
+			GObject.timeout_add(i*30, self.lala, screen_dimens)
+
+	def lala(self, args):
+		args[2].move(randint(0, args[0]),
+			randint(0, args[1]))
+		args[2].show_all()
 
 	def window_hide(self, window, event):
 		window.hide()
@@ -50,7 +71,7 @@ class Pimp:
 		self.editor = editor.Editor(path, self.image_widget, self.builder)
 		self.sensitivity_check()
 
-	def on_open(self, widget):
+	def on_open(self, widget, var = True):
 		dialog = Gtk.FileChooserDialog("Please choose a file",
 			self.window,
 			Gtk.FileChooserAction.OPEN,
@@ -66,7 +87,10 @@ class Pimp:
 		imagefilter.add_pattern("*.jpg")
 		imagefilter.add_pattern("*.gif")
 		imagefilter.add_pattern("*.tif")
+		imagefilter.add_pattern("*.tiff")
 		imagefilter.add_pattern("*.xpm")
+		imagefilter.add_pattern("*.bmp")
+		imagefilter.add_pattern("*.dib")
 		dialog.add_filter(imagefilter)
 		response = dialog.run()
 		if response == Gtk.ResponseType.OK:
@@ -74,7 +98,7 @@ class Pimp:
 		
 		dialog.destroy()
 
-	def on_save(self, widget):
+	def on_save(self, widget, var = True):
 		self.editor.save_image()
 	
 	def on_save_as(self, widget):
@@ -90,11 +114,11 @@ class Pimp:
 
 		dialog.destroy()
 
-	def on_undo(self, widget):
+	def on_undo(self, widget, var = True):
 		self.editor.do_undo()
 		self.sensitivity_check()
 
-	def on_redo(self, widget):
+	def on_redo(self, widget, var = True):
 		self.editor.do_redo()
 		self.sensitivity_check()
 
@@ -127,6 +151,7 @@ class Pimp:
 		return True
 
 	def aspect_ratio_checkbtn_toggled(self, user_data):
+		'''has no function yet'''
 		ratio = self.editor.apply_aspect_ratio()
 		print(self.spinbtnheight.get_adjustment())
 		self.spinbtnheight.configure(ratio, 0)
@@ -162,20 +187,6 @@ class Pimp:
 	def on_quit(self, widget):
 		Gtk.main_quit()
 		
-	def on_pimp(self, shortcut, var):
-		pimp = self.builder.get_object('pimp')
-		pimp.set_opacity(0)
-		pimp.show_all()
-		screen_dimens = [pimp.get_screen().get_width() - pimp.get_size()[0],
-			pimp.get_screen().get_height() - pimp.get_size()[1],
-			pimp]
-		for i in range(1000):
-			GObject.timeout_add(i*30, self.lala, screen_dimens)
-
-	def lala(self, args):
-		args[2].move(randint(0, args[0]),
-			randint(0, args[1]))
-		args[2].show_all()
 
 
 if __name__ == "__main__":
