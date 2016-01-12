@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-__author__ = "6040239: Elizaveta Kovalevskaya, Oles Pidgornyy"
+__author__ = "6040239: Elizaveta Kovalevskaya, 608220: Oles Pidgornyy"
 __licence__ = "GPLv2"
 __copyright__ = "Copyright 2015/2016 – EPR-Goethe-Uni"
 __credits__ = "Wir haben heute schon so viel verpasst! \
