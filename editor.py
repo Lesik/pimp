@@ -75,8 +75,7 @@ class Editor:
 		return not len(self.future) == 0
 
 	def apply_scale(self, height, width):
-		self.history.append(self.image)
-		self.future = []
+		self.effect_init()
 		self.image = scipy.misc.imresize(self.image, (height, width))
 		self.reload_image()
 
@@ -87,42 +86,45 @@ class Editor:
 		return (height / width)
 
 	def apply_invert(self):
-		self.history.append(self.image)
-		self.future = []
+		self.effect_init()
 		self.image = numpy.invert(self.image)
 		self.reload_image()
 
 	def apply_grayscale(self):
-		self.history.append(self.image)
-		self.future = []
+		self.effect_init()
 		try:
 			self.image = self.image[:, :, 0]
 			self.reload_image()
 		except:
 			return
 
-	def apply_motion(self):
+	def effect_init(self):
 		self.history.append(self.image)
 		self.future = []
+
+	def apply_median(self):
+		self.effect_init()
 		self.image = scipy.ndimage.filters.median_filter(self.image, 20)
 		self.reload_image()
 
 	def apply_gauss(self, level):
-		self.history.append(self.image)
-		self.future = []
+		self.effect_init()
 		self.image = scipy.ndimage.filters.gaussian_filter(self.image,
 			level)
 		#self.image = scipy.signal.spline_filter(self.image)
 		self.reload_image()
 
+	def apply_sobel(self, axis=1):
+		self.effect_init()
+		self.image = scipy.ndimage.filters.sobel(self.image, axis)
+		self.reload_image()
+
 	def apply_flip_horiz(self):
-		self.history.append(self.image)
-		self.future = []
+		self.effect_init()
 		self.image = numpy.fliplr(self.image)
 		self.reload_image()
 
 	def apply_flip_verti(self):
-		self.history.append(self.image)
-		self.future = []
+		self.effect_init()
 		self.image = numpy.flipud(self.image)
 		self.reload_image()

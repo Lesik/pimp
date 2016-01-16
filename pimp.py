@@ -161,8 +161,12 @@ class Pimp:
 		self.editor.apply_invert()		
 		self.sensitivity_check()
 
-	def on_effect_motion(self, user_date):
-		self.editor.apply_motion()
+	def on_effect_sobel(self, user_data):
+		self.editor.apply_sobel()
+		self.sensitivity_check()
+
+	def on_effect_median(self, user_date):
+		self.editor.apply_median()
 		self.sensitivity_check()
 
 	def on_effect_gauss(self, user_data):
