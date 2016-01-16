@@ -151,7 +151,7 @@ class Pimp:
 		return True
 
 	def aspect_ratio_checkbtn_toggled(self, user_data):
-		'''has no function yet'''
+		# has no function yet
 		ratio = self.editor.apply_aspect_ratio()
 		print(self.spinbtnheight.get_adjustment())
 		self.spinbtnheight.configure(ratio, 0)
@@ -163,6 +163,11 @@ class Pimp:
 
 	def on_effect_sobel(self, user_data):
 		self.editor.apply_sobel()
+		self.sensitivity_check()
+
+	def on_effect_laplace(self, user_data):
+		print(user_data)
+		self.editor.apply_laplace()
 		self.sensitivity_check()
 
 	def on_effect_median(self, user_date):

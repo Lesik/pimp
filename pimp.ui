@@ -515,8 +515,9 @@
                               <object class="GtkMenuItem" id="menuitem12">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">lulululu</property>
+                                <property name="label" translatable="yes">Laplace filter</property>
                                 <property name="use_underline">True</property>
+                                <signal name="activate" handler="on_effect_laplace" swapped="no"/>
                               </object>
                             </child>
                           </object>

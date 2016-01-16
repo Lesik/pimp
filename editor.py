@@ -119,6 +119,11 @@ class Editor:
 		self.image = scipy.ndimage.filters.sobel(self.image, axis)
 		self.reload_image()
 
+	def apply_laplace(self):
+		self.effect_init()
+		self.image = scipy.ndimage.filters.laplace(self.image)
+		self.reload_image()
+
 	def apply_flip_horiz(self):
 		self.effect_init()
 		self.image = numpy.fliplr(self.image)
