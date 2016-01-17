@@ -1,0 +1,7 @@
+# vimperator config file
+
+set gui=none,tabs
+colorscheme zenburn
+
+set defsearch=startpage
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
