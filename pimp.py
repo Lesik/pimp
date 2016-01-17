@@ -171,8 +171,6 @@ class Pimp:
 			self.spinbtnheight.set_range(1, 1000)
 			self.spinbtnwidth = self.builder.get_object('spinbtnwidth')
 			self.spinbtnwidth.set_range(1, 1000)
-			self.aspect_ratio_checkbtn = \
-				self.builder.get_object('aspect_ratio_checkbtn')
 			self.dialog_scale = self.builder.get_object('dialog_scale')
 			self.dialog_scale.connect('delete-event', self.window_hide)
 			self.dialog_scale.show_all()
