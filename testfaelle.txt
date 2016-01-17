@@ -1,0 +1,27 @@
+XYZ funktioniert
+jjk
+datei, oeffnen: check
+scale: funktioniert
+undo: funktioniert
+redo: funktioniert
+flip, hor. : funktioniert
+flip, ver. : funktioniert
+invert: funktioniert
+grayscale: funktioniert
+border filter, bolder operator: funktioniert
+border filter, laplace filter: funktioniert
+smoothing filter, median blur: funktioniert, dauert aber lange
+smoothing filter, gausian blur: funktioniert, beschriftung fehlerhaft
+cancel button: button cancel wird gecancelt (easter egg)
+Thresholding: funktioniert
+strg. z, strg. z: funktioniert
+normalize: funktioniert
+histogramm: funktioniert
+help: funktioniert
+speichern/speichern unter: funktioniert
+
+
+
+gtk message gtk diallog... etc noch bei den anderen dialogen
+
+
