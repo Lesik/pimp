@@ -93,8 +93,8 @@ class Pimp:
 	def load_image(self, path):
 		self.editor = editor.Editor(path, self.image_widget, self.builder)
 		self.sensitivity_check()
-		for i in self.btms:
-			i.set_sensitive(True)
+		for widget in self.btms:
+			widget.set_sensitive(True)
 
 	def on_open(self, widget, var = True):
 		dialog = Gtk.FileChooserDialog("Please choose a file",
