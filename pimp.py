@@ -51,6 +51,9 @@ class Pimp:
 		self.btms.append(self.go('effect-laplace'))
 		self.btms.append(self.go('effect-median'))
 		self.btms.append(self.go('effect-gaussian'))
+		self.btms.append(self.go('effect-threshold'))
+		self.btms.append(self.go('effect-normalize'))
+		self.btms.append(self.go('effect-histogram'))
 
 		Keybinder.init()
 		#Keybinder.bind("<Ctrl>O", self.on_open, True)
@@ -88,6 +91,12 @@ class Pimp:
 
 	def window_hide(self, window, event):
 		window.hide()
+		return True
+	
+	def dialog_hide(self, dialog):
+		"""actually we don't need no button cancel, but it's too
+		funny, so we let it hide"""
+		dialog.hide()
 		return True
 
 	def load_image(self, path):
@@ -199,7 +208,14 @@ class Pimp:
 			self.dialog_gaussian.show_all()
 
 		elif (chosen_effect == self.g('effect-threshold')):
-			self.editor.apply_threshold()
+			self.threshold_min = self.builder.get_object('threshold_min')
+			self.threshold_min.set_range(0, 1000)
+			self.threshold_max = self.builder.get_object('threshold_max')
+			self.threshold_max.set_range(0, 1000)
+			self.dialog_threshold = self.builder.get_object('dialog_threshold')
+			self.dialog_threshold.connect('delete-event', self.window_hide)
+			self.dialog_threshold.show_all()
+
 		elif (chosen_effect == self.g('effect-normalize')):
 			self.editor.apply_normalize()
 		elif (chosen_effect == self.g('effect-histogram')):
@@ -213,21 +229,20 @@ class Pimp:
 		self.editor.apply_scale(height, width)
 		self.sensitivity_check()
 		self.dialog_scale.hide()
-	
-	def on_effect_scale_cancel(self, user_data):
-		self.dialog_scale.hide()
-		return True
 
 	def on_effect_gauss_commit(self, button):
 		level = self.smoothing_gaussian.get_value_pos()
-		level = level * (1 / 2)
+		level = level * 0.5
 		self.editor.apply_gauss(level)
 		self.sensitivity_check()
 		self.dialog_gaussian.hide()
-	
-	def on_effect_gauss_cancel(self, user_data):
-		self.dialog_gaussian.hide()
-		return True
+
+	def on_effect_thresh_commit(self, user_data):
+		threshmin = self.threshold_min.get_value_as_int()
+		threshmax = self.threshold_max.get_value_as_int()
+		self.editor.apply_threshold(threshmin, threshmax)
+		self.sensitivity_check()
+		self.dialog_threshold.hide()
 	    
 	def on_window_destroy(self, window):
 		Gtk.main_quit()

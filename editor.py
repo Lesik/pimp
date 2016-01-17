@@ -122,7 +122,7 @@ class Editor:
 		#self.image = scipy.signal.spline_filter(self.image)
 		self.reload_image()
 
-	def apply_sobel(self, axis=1):
+	def apply_sobel(self, axis = 1):
 		self.effect_init()
 		self.image = scipy.ndimage.filters.sobel(self.image, axis)
 		self.reload_image()
@@ -132,9 +132,9 @@ class Editor:
 		self.image = scipy.ndimage.filters.laplace(self.image)
 		self.reload_image()
 
-	def apply_threshold(self):
+	def apply_threshold(self, threshmin, threshmax):
 		self.effect_init()
-		self.image = scipy.stats.threshold(self.image, threshmin=5, threshmax=20)
+		self.image = scipy.stats.threshold(self.image, threshmin, threshmax)
 		self.reload_image()
 
 	def apply_normalize(self):
