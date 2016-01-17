@@ -76,6 +76,8 @@ class Pimp:
 		self.image_widget = self.builder.get_object('image')
 
 		self.window = self.builder.get_object('window')
+		self.builder.get_object('dialog-gaussian').set_transient_for(self.window)
+		self.builder.get_object('dialog-scale').set_transient_for(self.window)
 		self.window.show_all()
 
 	def go(self, id):
@@ -215,7 +217,7 @@ class Pimp:
 			self.spinbtnheight.set_range(1, 1000)
 			self.spinbtnwidth = self.builder.get_object('spinbtnwidth')
 			self.spinbtnwidth.set_range(1, 1000)
-			self.dialog_scale = self.builder.get_object('dialog_scale')
+			self.dialog_scale = self.builder.get_object('dialog-scale')
 			self.dialog_scale.connect('delete-event', self.window_hide)
 			self.dialog_scale.show_all()
 
@@ -238,7 +240,7 @@ class Pimp:
 		elif (chosen_effect == self.g('effect-gaussian')):
 			self.smoothing_gaussian = \
 				self.builder.get_object('smoothing-gaussian')
-			self.dialog_gaussian = self.builder.get_object('dialog_gaussian')
+			self.dialog_gaussian = self.builder.get_object('dialog-gaussian')
 			self.dialog_gaussian.connect('delete-event', self.window_hide)
 			self.dialog_gaussian.show_all()
 
