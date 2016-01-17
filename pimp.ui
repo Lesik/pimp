@@ -158,7 +158,7 @@
       </object>
     </child>
   </object>
-  <object class="GtkDialog" id="dialog_threshold">
+  <object class="GtkDialog" id="dialog-threshold">
     <property name="can_focus">False</property>
     <property name="window_position">center</property>
     <property name="default_width">200</property>

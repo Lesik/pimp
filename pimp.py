@@ -75,6 +75,7 @@ class Pimp:
 		self.window = self.builder.get_object('window')
 		self.builder.get_object('dialog-gaussian').set_transient_for(self.window)
 		self.builder.get_object('dialog-scale').set_transient_for(self.window)
+		self.builder.get_object('dialog-threshold').set_transient_for(self.window)
 		self.window.show_all()
 
 	def go(self, id):
@@ -253,7 +254,7 @@ class Pimp:
 			self.threshold_min.set_range(0, 1000)
 			self.threshold_max = self.builder.get_object('threshold_max')
 			self.threshold_max.set_range(0, 1000)
-			self.dialog_threshold = self.builder.get_object('dialog_threshold')
+			self.dialog_threshold = self.builder.get_object('dialog-threshold')
 			self.dialog_threshold.connect('delete-event', self.window_hide)
 			self.dialog_threshold.show_all()
 
