@@ -15,6 +15,7 @@ import numpy
 import scipy.misc
 import scipy.ndimage
 import scipy.signal
+import sklearn.preprocessing
 import random, string
 import os
 
@@ -129,6 +130,15 @@ class Editor:
 		self.effect_init()
 		self.image = scipy.ndimage.filters.laplace(self.image)
 		self.reload_image()
+
+	def apply_treshold(self):
+		self.effect_init()
+		self.image = scipy.stats.treshold(self.image)
+		self.reload_image()
+
+	def apply_normalize(self):
+		self.effect_init()
+		self.image = sklearn.preprocessing.normalize(self.image)
 
 	def apply_flip_horiz(self):
 		self.effect_init()
