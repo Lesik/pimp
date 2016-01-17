@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adjustment1">
@@ -243,7 +243,7 @@
               <object class="GtkLabel" id="high_smooth">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">smoothing</property>
+                <property name="label" translatable="yes">no smoothing</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -348,7 +348,7 @@ GNOME Colors</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="menuitem-open">
+                      <object class="GtkImageMenuItem" id="imagemenuitem2">
                         <property name="label">gtk-open</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -358,10 +358,9 @@ GNOME Colors</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="menuitem-save">
+                      <object class="GtkImageMenuItem" id="imagemenuitem3">
                         <property name="label">gtk-save</property>
                         <property name="visible">True</property>
-                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
@@ -369,10 +368,9 @@ GNOME Colors</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="menuitem-save-as">
+                      <object class="GtkImageMenuItem" id="imagemenuitem4">
                         <property name="label">gtk-save-as</property>
                         <property name="visible">True</property>
-                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
@@ -386,7 +384,7 @@ GNOME Colors</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="menuitem-quit">
+                      <object class="GtkImageMenuItem" id="imagemenuitem5">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -448,7 +446,6 @@ GNOME Colors</property>
                     <child>
                       <object class="GtkMenuItem" id="effect-scale">
                         <property name="visible">True</property>
-                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Scale</property>
                         <property name="use_underline">True</property>
@@ -467,7 +464,6 @@ GNOME Colors</property>
                             <child>
                               <object class="GtkMenuItem" id="effect-flip-horiz">
                                 <property name="visible">True</property>
-                                <property name="sensitive">False</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Horizontally</property>
                                 <property name="use_underline">True</property>
@@ -477,7 +473,6 @@ GNOME Colors</property>
                             <child>
                               <object class="GtkMenuItem" id="effect-flip-vert">
                                 <property name="visible">True</property>
-                                <property name="sensitive">False</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Vertically</property>
                                 <property name="use_underline">True</property>
@@ -505,7 +500,6 @@ GNOME Colors</property>
                     <child>
                       <object class="GtkMenuItem" id="effect-invert">
                         <property name="visible">True</property>
-                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Invert</property>
                         <property name="use_underline">True</property>
@@ -515,7 +509,6 @@ GNOME Colors</property>
                     <child>
                       <object class="GtkMenuItem" id="effect-grayscale">
                         <property name="visible">True</property>
-                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Grayscale</property>
                         <property name="use_underline">True</property>
@@ -535,7 +528,6 @@ GNOME Colors</property>
                             <child>
                               <object class="GtkMenuItem" id="effect-sobel">
                                 <property name="visible">True</property>
-                                <property name="sensitive">False</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Sobel operator</property>
                                 <property name="use_underline">True</property>
@@ -545,7 +537,6 @@ GNOME Colors</property>
                             <child>
                               <object class="GtkMenuItem" id="effect-laplace">
                                 <property name="visible">True</property>
-                                <property name="sensitive">False</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Laplace filter</property>
                                 <property name="use_underline">True</property>
@@ -569,7 +560,6 @@ GNOME Colors</property>
                             <child>
                               <object class="GtkMenuItem" id="effect-median">
                                 <property name="visible">True</property>
-                                <property name="sensitive">False</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Median blur</property>
                                 <property name="use_underline">True</property>
@@ -579,7 +569,6 @@ GNOME Colors</property>
                             <child>
                               <object class="GtkMenuItem" id="effect-gaussian">
                                 <property name="visible">True</property>
-                                <property name="sensitive">False</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Gaussian Blur</property>
                                 <property name="use_underline">True</property>
@@ -588,6 +577,33 @@ GNOME Colors</property>
                             </child>
                           </object>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="effect-treshold">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Tresholding</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_effect" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="effect-normalize">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Normalize</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_effect" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="effect-histogram">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Histrogram</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_effect" swapped="no"/>
                       </object>
                     </child>
                   </object>
