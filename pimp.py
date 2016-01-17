@@ -31,24 +31,26 @@ class Pimp:
 		self.builder.add_from_file(UI_FILE)
 		self.builder.connect_signals(self)
 
+		self.btms = [] # buttons_to_make_sensitive
+
 		self.btn_open = self.builder.get_object('btn-open')
-		self.btn_save = self.builder.get_object('btn-save')
-		self.btn_save_as = self.builder.get_object('btn-save-as')
-		self.btn_undo = self.builder.get_object('btn-undo')
-		self.btn_redo = self.builder.get_object('btn-redo')
-		self.menuitem_save = self.builder.get_object('menuitem-save')
-		self.menuitem_save_as = self.builder.get_object('menuitem-save-as')
-		self.menuitem_undo = self.builder.get_object('menuitem_undo')
-		self.menuitem_redo = self.builder.get_object('menuitem_redo')
-		self.effect_scale = self.builder.get_object('effect-scale')
-		self.effect_flip_horiz = self.builder.get_object('effect-flip-horiz')
-		self.effect_flip_vert = self.builder.get_object('effect-flip-vert')
-		self.effect_invert = self.builder.get_object('effect-invert')
-		self.effect_grayscale = self.builder.get_object('effect-grayscale')
-		self.effect_sobel = self.builder.get_object('effect-sobel')
-		self.effect_laplace = self.builder.get_object('effect-laplace')
-		self.effect_median = self.builder.get_object('effect-median')
-		self.effect_gaussian = self.builder.get_object('effect-gaussian')
+		self.btms.append(self.go('btn-save'))
+		self.btms.append(self.go('btn-save-as'))
+		self.btn_undo = self.go('btn-undo')
+		self.btn_redo = self.go('btn-redo')
+		self.btms.append(self.go('menuitem-save'))
+		self.btms.append(self.go('menuitem-save-as'))
+		self.menuitem_undo = self.go('menuitem_undo')
+		self.menuitem_redo = self.go('menuitem_redo')
+		self.btms.append(self.go('effect-scale'))
+		self.btms.append(self.go('effect-flip-horiz'))
+		self.btms.append(self.go('effect-flip-vert'))
+		self.btms.append(self.go('effect-invert'))
+		self.btms.append(self.go('effect-grayscale'))
+		self.btms.append(self.go('effect-sobel'))
+		self.btms.append(self.go('effect-laplace'))
+		self.btms.append(self.go('effect-median'))
+		self.btms.append(self.go('effect-gaussian'))
 
 		Keybinder.init()
 		#Keybinder.bind("<Ctrl>O", self.on_open, True)
@@ -61,6 +63,9 @@ class Pimp:
 
 		self.window = self.builder.get_object('window')
 		self.window.show_all()
+
+	def go(self, id):
+		return self.builder.get_object(id)
 
 	def celebrate_easter(self, shortcut, var = True):
 		""" This is not an easter egg! I swear!
@@ -88,19 +93,8 @@ class Pimp:
 	def load_image(self, path):
 		self.editor = editor.Editor(path, self.image_widget, self.builder)
 		self.sensitivity_check()
-		self.menuitem_save.set_sensitive(True)
-		self.menuitem_save_as.set_sensitive(True)
-		self.btn_save.set_sensitive(True)
-		self.btn_save_as.set_sensitive(True)
-		self.effect_scale.set_sensitive(True)
-		self.effect_flip_horiz.set_sensitive(True)
-		self.effect_flip_vert.set_sensitive(True)
-		self.effect_invert.set_sensitive(True)
-		self.effect_grayscale.set_sensitive(True)
-		self.effect_sobel.set_sensitive(True)
-		self.effect_laplace.set_sensitive(True)
-		self.effect_median.set_sensitive(True)
-		self.effect_gaussian.set_sensitive(True)
+		for i in self.btms:
+			i.set_sensitive(True)
 
 	def on_open(self, widget, var = True):
 		dialog = Gtk.FileChooserDialog("Please choose a file",
@@ -159,24 +153,6 @@ class Pimp:
 		self.menuitem_undo.set_sensitive(self.editor.avail_undo())
 		self.menuitem_redo.set_sensitive(self.editor.avail_redo())
 
-	def on_effect_scale_commit(self, button):
-		height = self.spinbtnheight.get_value_as_int()
-		width = self.spinbtnwidth.get_value_as_int()
-		self.editor.apply_scale(height, width)
-		self.sensitivity_check()
-		self.dialog_scale.hide()
-	
-	def on_effect_scale_cancel(self, user_data):
-		self.dialog_scale.hide()
-		return True
-
-	def aspect_ratio_checkbtn_toggled(self, user_data):
-		# has no function yet
-		ratio = self.editor.apply_aspect_ratio()
-		print(self.spinbtnheight.get_adjustment())
-		self.spinbtnheight.configure(ratio, 0)
-		#self.spinbtnwidth.configure(adjustment, ratio, 0)	
-
 	def g(self, widget_id):
 		""" Returns label of a widget with given ID
 		:param widget_id: ID of widget
@@ -224,6 +200,17 @@ class Pimp:
 			self.dialog_gaussian.connect('delete-event', self.window_hide)
 			self.dialog_gaussian.show_all()
 		self.sensitivity_check()
+
+	def on_effect_scale_commit(self, button):
+		height = self.spinbtnheight.get_value_as_int()
+		width = self.spinbtnwidth.get_value_as_int()
+		self.editor.apply_scale(height, width)
+		self.sensitivity_check()
+		self.dialog_scale.hide()
+	
+	def on_effect_scale_cancel(self, user_data):
+		self.dialog_scale.hide()
+		return True
 
 	def on_effect_gauss_commit(self, button):
 		level = self.smoothing_gaussian.get_value_pos()
