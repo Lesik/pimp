@@ -128,17 +128,6 @@ class Pimp:
 		self.menuitem_undo.set_sensitive(self.editor.avail_undo())
 		self.menuitem_redo.set_sensitive(self.editor.avail_redo())
 
-	def on_effect_scale(self, user_data):
-		self.spinbtnheight = self.builder.get_object('spinbtnheight')
-		self.spinbtnheight.set_range(1, 1000)
-		self.spinbtnwidth = self.builder.get_object('spinbtnwidth')
-		self.spinbtnwidth.set_range(1, 1000)
-		self.aspect_ratio_checkbtn = \
-			self.builder.get_object('aspect_ratio_checkbtn')
-		self.dialog_scale = self.builder.get_object('dialog_scale')
-		self.dialog_scale.connect('delete-event', self.window_hide)
-		self.dialog_scale.show_all()
-
 	def on_effect_scale_commit(self, button):
 		height = self.spinbtnheight.get_value_as_int()
 		width = self.spinbtnwidth.get_value_as_int()
@@ -157,29 +146,44 @@ class Pimp:
 		self.spinbtnheight.configure(ratio, 0)
 		#self.spinbtnwidth.configure(adjustment, ratio, 0)	
 
-	def on_effect_invert(self, user_data):
-		self.editor.apply_invert()		
-		self.sensitivity_check()
+	def g(self, widget_id):
+		return self.builder.get_object(widget_id).get_label()
 
-	def on_effect_sobel(self, user_data):
-		self.editor.apply_sobel()
-		self.sensitivity_check()
+	def on_effect(self, widget):
+		chosen_effect = widget.get_label()
+		if (chosen_effect == self.g('effect-scale')):
+			self.spinbtnheight = self.builder.get_object('spinbtnheight')
+			self.spinbtnheight.set_range(1, 1000)
+			self.spinbtnwidth = self.builder.get_object('spinbtnwidth')
+			self.spinbtnwidth.set_range(1, 1000)
+			self.aspect_ratio_checkbtn = \
+				self.builder.get_object('aspect_ratio_checkbtn')
+			self.dialog_scale = self.builder.get_object('dialog_scale')
+			self.dialog_scale.connect('delete-event', self.window_hide)
+			self.dialog_scale.show_all()
+		elif (chosen_effect == self.g('effect-flip-horiz')):
+			self.editor.apply_flip_horiz()
+		elif (chosen_effect == self.g('effect-flip-vert')):
+			self.editor.apply_flip_verti()
 
-	def on_effect_laplace(self, user_data):
-		print(user_data)
-		self.editor.apply_laplace()
-		self.sensitivity_check()
+		elif (chosen_effect == self.g('effect-invert')):
+			self.editor.apply_invert()
+		elif (chosen_effect == self.g('effect-grayscale')):
+			self.editor.apply_grayscale()
 
-	def on_effect_median(self, user_date):
-		self.editor.apply_median()
+		elif (chosen_effect == self.g('effect-sobel')):
+			self.editor.apply_sobel()
+		elif (chosen_effect == self.g('effect-laplace')):
+			self.editor.apply_laplace()
+		elif (chosen_effect == self.g('effect-median')):
+			self.editor.apply_median()
+		elif (chosen_effect == self.g('effect-gaussian')):
+			self.smoothing_gaussian = \
+				self.builder.get_object('smoothing-gaussian')
+			self.dialog_gaussian = self.builder.get_object('dialog_gaussian')
+			self.dialog_gaussian.connect('delete-event', self.window_hide)
+			self.dialog_gaussian.show_all()
 		self.sensitivity_check()
-
-	def on_effect_gauss(self, user_data):
-		self.smoothing_gaussian = \
-			self.builder.get_object('smoothing-gaussian')
-		self.dialog_gaussian = self.builder.get_object('dialog_gaussian')
-		self.dialog_gaussian.connect('delete-event', self.window_hide)
-		self.dialog_gaussian.show_all()
 
 	def on_effect_gauss_commit(self, button):
 		level = self.smoothing_gaussian.get_value_pos()
@@ -192,24 +196,11 @@ class Pimp:
 		self.dialog_gaussian.hide()
 		return True
 	    
-	def on_effect_grayscale(self, user_data):
-		self.editor.apply_grayscale()
-		self.sensitivity_check()
-
 	def on_window_destroy(self, window):
 		Gtk.main_quit()
 
-	def on_effect_flip_horiz(self, widget):
-		self.editor.apply_flip_horiz()
-		self.sensitivity_check()
-
-	def on_effect_flip_verti(self, widget):
-		self.editor.apply_flip_verti()
-		self.sensitivity_check()
-
 	def on_about(self, widget):
-		# dummy function, will use later
-		pass
+		self.builder.get_object('dialog-about').show()
 
 	def on_quit(self, widget):
 		Gtk.main_quit()
