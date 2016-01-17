@@ -14,6 +14,7 @@ __email__ = "klisa-2008@yandex.ru, pidgornyy@informatik.uni-frankfurt.de"
 import numpy
 import scipy.misc
 import scipy.ndimage
+import scipy.stats
 import scipy.signal
 import sklearn.preprocessing
 import random, string
@@ -131,19 +132,19 @@ class Editor:
 		self.image = scipy.ndimage.filters.laplace(self.image)
 		self.reload_image()
 
-	def apply_treshold(self):
+	def apply_threshold(self):
 		self.effect_init()
-		self.image = scipy.stats.treshold(self.image)
+		self.image = scipy.stats.threshold(self.image, threshmin=5, threshmax=20)
 		self.reload_image()
 
 	def apply_normalize(self):
 		self.effect_init()
-		self.image = sklearn.preprocessing.normalize(self.image)
+		self.image = sklearn.preprocessing.normalize(self.image[0])
 		self.reload_image()
 
 	def apply_histogram(self):
 		self.effect_init()
-		self.image = numpy.history(self.image)
+		self.image = numpy.histogram(self.image)
 		self.reload_image()
 
 	def apply_flip_horiz(self):

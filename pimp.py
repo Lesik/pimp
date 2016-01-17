@@ -198,8 +198,8 @@ class Pimp:
 			self.dialog_gaussian.connect('delete-event', self.window_hide)
 			self.dialog_gaussian.show_all()
 
-		elif (chosen_effect == self.g('effect-treshold')):
-			self.editor.apply_treshold()
+		elif (chosen_effect == self.g('effect-threshold')):
+			self.editor.apply_threshold()
 		elif (chosen_effect == self.g('effect-normalize')):
 			self.editor.apply_normalize()
 		elif (chosen_effect == self.g('effect-histogram')):
