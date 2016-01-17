@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
+""" Frontend of PIMP Imagine Manipulation Program """
+
+
 __author__ = "6040239: Elizaveta Kovalevskaya, 608220: Oles Pidgornyy"
 __licence__ = "GPLv2"
-__copyright__ = "Copyright 2015/2016 – EPR-Goethe-Uni"
+__copyleft__ = "Copyleft 2016"
 __credits__ = "Wir haben heute schon so viel verpasst! \
 Ey ich glaube wir machen uns sofort auf den Weg nachdem wir gechillt haben!"
-__email__ = "klisa-2008@yandex.ru"
-'''frontend of P Imagine Manipulation Programm'''
+__email__ = "klisa-2008@yandex.ru, pidgornyy@informatik.uni-frankfurt.de"
 
 
 import gi
@@ -41,14 +43,18 @@ class Pimp:
 		#Keybinder.bind("<Ctrl>S", self.on_save, True)
 		#Keybinder.bind("<Ctrl>Z", self.on_undo, True)
 		#Keybinder.bind("<Ctrl>Y", self.on_redo, True)
-		Keybinder.bind("<Ctrl>P", self.on_pimp, True)
+		Keybinder.bind("<Ctrl>P", self.celebrate_easter, True)
 
 		self.image_widget = self.builder.get_object('image')
 
 		self.window = self.builder.get_object('window')
 		self.window.show_all()
 
-	def on_pimp(self, shortcut, var = True):
+	def celebrate_easter(self, shortcut, var = True):
+		""" This is not an easter egg! I swear!
+		:param shortcut: the shortcut that was pressed
+		:param var: some useless parameter
+		"""
 		pimp = self.builder.get_object('pimp')
 		pimp.set_opacity(0)
 		pimp.show_all()
@@ -147,9 +153,17 @@ class Pimp:
 		#self.spinbtnwidth.configure(adjustment, ratio, 0)	
 
 	def g(self, widget_id):
+		""" Returns label of a widget with given ID
+		:param widget_id: ID of widget
+		:return: label of widget
+		"""
 		return self.builder.get_object(widget_id).get_label()
 
 	def on_effect(self, widget):
+		""" This function is run when an effect has been selected.
+			Function analyzes the widget and executes the according function
+		:param widget: the widget that was pressed
+		"""
 		chosen_effect = widget.get_label()
 		if (chosen_effect == self.g('effect-scale')):
 			self.spinbtnheight = self.builder.get_object('spinbtnheight')
@@ -161,6 +175,7 @@ class Pimp:
 			self.dialog_scale = self.builder.get_object('dialog_scale')
 			self.dialog_scale.connect('delete-event', self.window_hide)
 			self.dialog_scale.show_all()
+
 		elif (chosen_effect == self.g('effect-flip-horiz')):
 			self.editor.apply_flip_horiz()
 		elif (chosen_effect == self.g('effect-flip-vert')):
@@ -205,7 +220,8 @@ class Pimp:
 	def on_quit(self, widget):
 		Gtk.main_quit()
 		
-
+print("THIS PROGRAM IS DEVELOPED FOR GNU/LINUX AND BSD ONLY!")
+print("PROGRAM WILL MALFUNCTION WHEN RUN UNDER OTHER OPERATING SYSTEM!")
 
 if __name__ == "__main__":
 	Pimp()

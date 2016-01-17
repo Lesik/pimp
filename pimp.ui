@@ -288,8 +288,10 @@
     <property name="type_hint">dialog</property>
     <property name="program_name">PIMP Imagine Manipulation Program</property>
     <property name="version">2.4.4</property>
+    <property name="copyright" translatable="yes">Copyleft 2016</property>
+    <property name="comments" translatable="yes">Made as a programming assignment for Goethe University.</property>
     <property name="website">github.com/pidgornyy/pimp</property>
-    <property name="authors">Elisaveta Kovalevskaja (Lisa)
+    <property name="authors">Elizaveta Kovalevskaya (Lisa)
 Oles Pidgornyy (Lesik)</property>
     <property name="artists">Tango Desktop Project
 GNOME Colors</property>

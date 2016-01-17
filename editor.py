@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
+""" Backend of PIMP Imagine Manipulation Program """
+
+
 __author__ = "6040239: Elizaveta Kovalevskaya, 608220: Oles Pidgornyy"
 __licence__ = "GPLv2"
-__copyright__ = "Copyright 2015/2016 – EPR-Goethe-Uni"
+__copyleft__ = "Copyleft 2016"
 __credits__ = "Wir haben heute schon so viel verpasst! \
 Ey ich glaube wir machen uns sofort auf den Weg nachdem wir gechillt haben!"
-__email__ = "klisa-2008@yandex.ru"
-'''backend of P Imagine Manipulation Programm'''
+__email__ = "klisa-2008@yandex.ru, pidgornyy@informatik.uni-frankfurt.de"
 
 
 import numpy
@@ -43,10 +45,7 @@ class Editor:
 	def get_image(self):
 		return self.image
 
-	def get_image_size(self):
-		pass
-
-	def do_undo(self):		
+	def do_undo(self):
 		self.future.append(self.image)
 		self.image = self.history[-1]
 		self.history.pop()
@@ -59,10 +58,17 @@ class Editor:
 		self.reload_image()
 
 	def randomword(self, length):
+		""" Return a random word of requested length.
+		:param length: length of the returned word
+		:return: the returned word
+		"""
 		return ''.join(random.choice(string.ascii_lowercase)
 				for i in range(length))
 
 	def reload_image(self):
+		""" Reloads the UI image widget (GtkImage) by saving the
+			vector to a file, then loading it.
+		"""
 		path = "/tmp/pimp" + self.randomword(6) + ".png"
 		scipy.misc.imsave(path, self.image)
 		self.image_widget.set_from_file(path)
