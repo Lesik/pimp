@@ -1,6 +1,20 @@
 #!/usr/bin/env python3
 
-""" Frontend of PIMP Imagine Manipulation Program """
+""" Frontend of PIMP Imagine Manipulation Program
+
+This software has the following dependencies that need to
+be installed in order for it to run properly:
+
+* GTK (PyGObject, Keybinder)
+* numpy
+* scipy
+* matplotlib
+* sklearn
+
+THIS PROGRAM IS DEVELOPED FOR GNU/LINUX AND BSD ONLY!
+PROGRAM WILL MALFUNCTION WHEN RUN UNDER OTHER OPERATING SYSTEM!
+
+"""
 
 
 __author__ = "6040239: Elizaveta Kovalevskaya, 608220: Oles Pidgornyy"
@@ -15,11 +29,8 @@ import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Keybinder', '3.0')
 from gi.repository import Gtk, GObject, Keybinder
-import numpy
-import scipy.misc
 import editor
 from random import randint
-from time import sleep
 
 UI_FILE = "pimp.ui"
 

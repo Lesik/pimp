@@ -16,6 +16,7 @@ import scipy.misc
 import scipy.ndimage
 import scipy.stats
 import scipy.signal
+import matplotlib.pyplot
 import sklearn.preprocessing
 import random, string
 import os
@@ -48,6 +49,9 @@ class Editor:
 			path += '.png'
 		scipy.misc.imsave(path, self.image)
 
+	def get_image(self):
+		return self.image
+
 	def do_undo(self):
 		""" Applies the undo.
 		"""
@@ -58,7 +62,7 @@ class Editor:
 
 	def do_redo(self):
 		""" Applies the redo.
-		"""		
+		"""
 		self.history.append(self.image)
 		self.image = self.future[-1]
 		self.future.pop()		
@@ -87,7 +91,7 @@ class Editor:
 		"""
 		self.history.append(self.image)
 		self.future = []
-		
+
 	def avail_undo(self):
 		""" Checks if undo is possible.
 		"""
@@ -105,9 +109,15 @@ class Editor:
 		self.image = scipy.misc.imresize(self.image, (height, width))
 		self.reload_image()
 
+	def apply_aspect_ratio(self):
+		'''has no funcion yet'''		
+		height = numpy.size(self.image, 0)
+		width = numpy.size(self.image, 1)
+		return (height / width)
+
 	def apply_invert(self):
 		""" Inverts the image.
-		"""	
+		"""
 		self.effect_init()
 		self.image = numpy.invert(self.image)
 		self.reload_image()
@@ -122,6 +132,10 @@ class Editor:
 		except:
 			return
 
+	def effect_init(self):
+		self.history.append(self.image)
+		self.future = []
+
 	def apply_median(self):
 		""" Blurs by median
 		"""
@@ -135,6 +149,7 @@ class Editor:
 		self.effect_init()
 		self.image = scipy.ndimage.filters.gaussian_filter(self.image,
 			level)
+		#self.image = scipy.signal.spline_filter(self.image)
 		self.reload_image()
 
 	def apply_sobel(self, axis = 1):
@@ -162,15 +177,22 @@ class Editor:
 		""" Normalizes the image.
 		"""
 		self.effect_init()
-		self.image = sklearn.preprocessing.normalize(self.image[0])
-		self.reload_image()
+		try:
+			self.image = self.image[:, :, 0]
+			self.image = sklearn.preprocessing.normalize(self.image)
+			self.reload_image()
+		except:
+			return
 
 	def apply_histogram(self):
 		""" Makes a histogram in a new window.
 		"""
-		self.effect_init()
-		self.image = numpy.histogram(self.image)
-		self.reload_image()
+		hist, bins = numpy.histogram(self.image)
+		matplotlib.pyplot.bar((bins[:-1] + bins[1:]) / 2,
+							  hist,
+							  align='center',
+							  width = 0.7 * (bins[1] - bins[0]))
+		matplotlib.pyplot.show()
 
 	def apply_flip_horiz(self):
 		""" Flips the image horizontally.
