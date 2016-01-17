@@ -68,10 +68,12 @@ class Pimp:
 		self.window.show_all()
 
 	def go(self, id):
+		""" Gets the object from the UI file.
+		"""
 		return self.builder.get_object(id)
 
 	def celebrate_easter(self, shortcut, var = True):
-		""" This is not an easter egg! I swear!
+		""" This is not an easter egg! We swear!
 		:param shortcut: the shortcut that was pressed
 		:param var: some useless parameter
 		"""
@@ -85,27 +87,38 @@ class Pimp:
 			GObject.timeout_add(i * 30, self.fly_around, screen_dimens)
 
 	def fly_around(self, args):
+		""" Lets the object move in different directories.
+		"""
 		args[2].move(randint(0, args[0]),
 			randint(0, args[1]))
 		args[2].show_all()
 
 	def window_hide(self, window, event):
+		""" Hide function so that the window won't be distroyed and has
+		no item when it's opened the next time.
+		"""
 		window.hide()
 		return True
 	
 	def dialog_hide(self, dialog):
-		"""actually we don't need no button cancel, but it's too
-		funny, so we let it hide"""
+		""" Actually we don't need no button cancel, but it's too
+		funny, so we let it hide.
+		"""
 		dialog.hide()
 		return True
 
 	def load_image(self, path):
+		""" Creating a instance of the Editor class and setting the 
+		buttons sensitive, so that changes can be made.
+		"""
 		self.editor = editor.Editor(path, self.image_widget, self.builder)
 		self.sensitivity_check()
 		for widget in self.btms:
 			widget.set_sensitive(True)
 
 	def on_open(self, widget, var = True):
+		""" Opens a Dialog with only picture files.
+		"""
 		dialog = Gtk.FileChooserDialog("Please choose a file",
 			self.window,
 			Gtk.FileChooserAction.OPEN,
@@ -133,9 +146,13 @@ class Pimp:
 		dialog.destroy()
 
 	def on_save(self, widget, var = True):
+		""" Replaces the original image by the current image.
+		"""
 		self.editor.save_image()
 	
 	def on_save_as(self, widget):
+		""" Opens a dialog and saves the image as a new file.
+		"""
 		dialog = Gtk.FileChooserDialog("Please choose a directory",
 			self.window,
 			Gtk.FileChooserAction.SAVE,
@@ -149,14 +166,21 @@ class Pimp:
 		dialog.destroy()
 
 	def on_undo(self, widget, var = True):
+		""" Removes the last change.
+		"""
 		self.editor.do_undo()
 		self.sensitivity_check()
 
 	def on_redo(self, widget, var = True):
+		""" Redoes the last change.
+		"""
 		self.editor.do_redo()
 		self.sensitivity_check()
 
 	def sensitivity_check(self):
+		""" Checks if there's something to undo or redo and set's the
+		buttons sensitive if necessary.
+		"""
 		self.btn_undo.set_sensitive(self.editor.avail_undo())
 		self.btn_redo.set_sensitive(self.editor.avail_redo())
 		self.menuitem_undo.set_sensitive(self.editor.avail_undo())
@@ -223,14 +247,18 @@ class Pimp:
 
 		self.sensitivity_check()
 
-	def on_effect_scale_commit(self, button):
+	def on_effect_scale_commit(self, user_data):
+		""" Gets the user values for scale.
+		"""
 		height = self.spinbtnheight.get_value_as_int()
 		width = self.spinbtnwidth.get_value_as_int()
 		self.editor.apply_scale(height, width)
 		self.sensitivity_check()
 		self.dialog_scale.hide()
 
-	def on_effect_gauss_commit(self, button):
+	def on_effect_gauss_commit(self, user_data):
+		""" Gets the user values for gauss.
+		"""
 		level = self.smoothing_gaussian.get_value_pos()
 		level = level * 0.5
 		self.editor.apply_gauss(level)
@@ -238,19 +266,22 @@ class Pimp:
 		self.dialog_gaussian.hide()
 
 	def on_effect_thresh_commit(self, user_data):
+		""" Gets the user values for threshold.
+		"""
 		threshmin = self.threshold_min.get_value_as_int()
 		threshmax = self.threshold_max.get_value_as_int()
 		self.editor.apply_threshold(threshmin, threshmax)
 		self.sensitivity_check()
 		self.dialog_threshold.hide()
-	    
-	def on_window_destroy(self, window):
-		Gtk.main_quit()
 
 	def on_about(self, widget):
+		""" Opens the infomation about PIMP.
+		"""
 		self.builder.get_object('dialog-about').show()
 
 	def on_quit(self, widget):
+		""" Destroys the window.
+		"""
 		Gtk.main_quit()
 		
 print("THIS PROGRAM IS DEVELOPED FOR GNU/LINUX AND BSD ONLY!")
