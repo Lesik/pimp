@@ -67,10 +67,7 @@ class Pimp:
 		self.btms.append(self.go('effect-histogram'))
 
 		Keybinder.init()
-		#Keybinder.bind("<Ctrl>O", self.on_open, True)
-		#Keybinder.bind("<Ctrl>S", self.on_save, True)
-		#Keybinder.bind("<Ctrl>Z", self.on_undo, True)
-		#Keybinder.bind("<Ctrl>Y", self.on_redo, True)
+		Keybinder.bind("<Ctrl>O", self.on_open, True)
 		Keybinder.bind("<Ctrl>P", self.celebrate_easter, True)
 
 		self.image_widget = self.builder.get_object('image')
@@ -123,6 +120,9 @@ class Pimp:
 		buttons sensitive, so that changes can be made.
 		"""
 		self.editor = editor.Editor(path, self.image_widget, self.builder)
+		Keybinder.bind("<Ctrl>S", self.on_save, True)
+		Keybinder.bind("<Ctrl>Z", self.on_undo, True)
+		Keybinder.bind("<Ctrl>Y", self.on_redo, True)
 		self.sensitivity_check()
 		for widget in self.btms:
 			widget.set_sensitive(True)
@@ -179,14 +179,16 @@ class Pimp:
 	def on_undo(self, widget, var = True):
 		""" Removes the last change.
 		"""
-		self.editor.do_undo()
-		self.sensitivity_check()
+		if self.enablectrlz:
+			self.editor.do_undo()
+			self.sensitivity_check()
 
 	def on_redo(self, widget, var = True):
 		""" Redoes the last change.
 		"""
-		self.editor.do_redo()
-		self.sensitivity_check()
+		if self.enablectrly:
+			self.editor.do_redo()
+			self.sensitivity_check()
 
 	def sensitivity_check(self):
 		""" Checks if there's something to undo or redo and set's the
@@ -196,6 +198,8 @@ class Pimp:
 		self.btn_redo.set_sensitive(self.editor.avail_redo())
 		self.menuitem_undo.set_sensitive(self.editor.avail_undo())
 		self.menuitem_redo.set_sensitive(self.editor.avail_redo())
+		self.enablectrlz = self.editor.avail_undo()
+		self.enablectrly = self.editor.avail_redo()
 
 	def g(self, widget_id):
 		""" Returns label of a widget with given ID
