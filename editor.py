@@ -141,6 +141,11 @@ class Editor:
 		self.image = sklearn.preprocessing.normalize(self.image)
 		self.reload_image()
 
+	def apply_histogram(self):
+		self.effect_init()
+		self.image = numpy.history(self.image)
+		self.reload_image()
+
 	def apply_flip_horiz(self):
 		self.effect_init()
 		self.image = numpy.fliplr(self.image)
