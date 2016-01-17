@@ -33,11 +33,23 @@ class Pimp:
 
 		self.btn_open = self.builder.get_object('btn-open')
 		self.btn_save = self.builder.get_object('btn-save')
+		self.btn_save_as = self.builder.get_object('btn-save-as')
 		self.btn_undo = self.builder.get_object('btn-undo')
 		self.btn_redo = self.builder.get_object('btn-redo')
+		self.menuitem_save = self.builder.get_object('menuitem-save')
+		self.menuitem_save_as = self.builder.get_object('menuitem-save-as')
 		self.menuitem_undo = self.builder.get_object('menuitem_undo')
 		self.menuitem_redo = self.builder.get_object('menuitem_redo')
-		
+		self.effect_scale = self.builder.get_object('effect-scale')
+		self.effect_flip_horiz = self.builder.get_object('effect-flip-horiz')
+		self.effect_flip_vert = self.builder.get_object('effect-flip-vert')
+		self.effect_invert = self.builder.get_object('effect-invert')
+		self.effect_grayscale = self.builder.get_object('effect-grayscale')
+		self.effect_sobel = self.builder.get_object('effect-sobel')
+		self.effect_laplace = self.builder.get_object('effect-laplace')
+		self.effect_median = self.builder.get_object('effect-median')
+		self.effect_gaussian = self.builder.get_object('effect-gaussian')
+
 		Keybinder.init()
 		#Keybinder.bind("<Ctrl>O", self.on_open, True)
 		#Keybinder.bind("<Ctrl>S", self.on_save, True)
@@ -76,6 +88,19 @@ class Pimp:
 	def load_image(self, path):
 		self.editor = editor.Editor(path, self.image_widget, self.builder)
 		self.sensitivity_check()
+		self.menuitem_save.set_sensitive(True)
+		self.menuitem_save_as.set_sensitive(True)
+		self.btn_save.set_sensitive(True)
+		self.btn_save_as.set_sensitive(True)
+		self.effect_scale.set_sensitive(True)
+		self.effect_flip_horiz.set_sensitive(True)
+		self.effect_flip_vert.set_sensitive(True)
+		self.effect_invert.set_sensitive(True)
+		self.effect_grayscale.set_sensitive(True)
+		self.effect_sobel.set_sensitive(True)
+		self.effect_laplace.set_sensitive(True)
+		self.effect_median.set_sensitive(True)
+		self.effect_gaussian.set_sensitive(True)
 
 	def on_open(self, widget, var = True):
 		dialog = Gtk.FileChooserDialog("Please choose a file",
@@ -226,3 +251,4 @@ print("PROGRAM WILL MALFUNCTION WHEN RUN UNDER OTHER OPERATING SYSTEM!")
 if __name__ == "__main__":
 	Pimp()
 	Gtk.main()
+
