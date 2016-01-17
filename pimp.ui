@@ -733,6 +733,7 @@ GNOME Colors</property>
                     <child>
                       <object class="GtkMenuItem" id="effect-threshold">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Thresholding</property>
                         <property name="use_underline">True</property>
@@ -742,6 +743,7 @@ GNOME Colors</property>
                     <child>
                       <object class="GtkMenuItem" id="effect-normalize">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Normalize</property>
                         <property name="use_underline">True</property>
@@ -751,6 +753,7 @@ GNOME Colors</property>
                     <child>
                       <object class="GtkMenuItem" id="effect-histogram">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Histrogram</property>
                         <property name="use_underline">True</property>
