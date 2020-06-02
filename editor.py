@@ -3,12 +3,7 @@
 """ Backend of PIMP Imagine Manipulation Program """
 
 
-__author__ = "6040239: Elizaveta Kovalevskaya, 608220: Oles Pidgornyy"
 __licence__ = "GPLv2"
-__copyleft__ = "Copyleft 2016"
-__credits__ = "Wir haben heute schon so viel verpasst! \
-Ey ich glaube wir machen uns sofort auf den Weg nachdem wir gechillt haben!"
-__email__ = "klisa-2008@yandex.ru, pidgornyy@informatik.uni-frankfurt.de"
 
 
 import numpy
